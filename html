@@ -1,1 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Vida das Estrelas: Uma Jornada Cósmica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0b2d;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at center, #1a1a4a 0%, #0b0b2d 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(to bottom, rgba(11, 11, 45, 0.9), rgba(11, 11, 45, 0.7));
+            border-bottom: 1px solid #2a2a5a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1462332420958-a05d1e002413?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #bb86fc;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            background: linear-gradient(to right, #4a148c, #7b1fa2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(123, 31, 162, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(123, 31, 162, 0.5);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #4a148c, #2196f3);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #bb86fc;
+            border: 4px solid #0b0b2d;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -13px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -13px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(26, 26, 74, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #2a2a5a;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .timeline-content h2 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .timeline-img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+            border-top: 1px solid #2a2a5a;
+            color: #bb86fc;
+        }
+
+        .conclusion {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px;
+            background: rgba(26, 26, 74, 0.7);
+            border-radius: 15px;
+            margin-top: 50px;
+            border: 1px solid #2a2a5a;
+        }
+
+        .conclusion h2 {
+            color: #4fc3f7;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .conclusion p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(26, 26, 74, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #2a2a5a;
+        }
+
+        .audio-controls label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        input[type="range"] {
+            width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 18px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>A Vida das Estrelas</h1>
+            <p class="subtitle">Uma Jornada Cósmica do Nascimento à Morte</p>
+            <div class="controls">
+                <button id="playNarration">
+                    <i>▶</i> Iniciar Narração
+                </button>
+                <button id="pauseNarration">
+                    <i>⏸</i> Pausar Narração
+                </button>
+                <button id="restartNarration">
+                    <i>↺</i> Reiniciar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="timeline">
+            <!-- Nebulosa -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>1. O Nascimento: A Nebulosa Estelar</h2>
+                    <img src="https://images.unsplash.com/photo-1462332420958-a05d1e002413?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nebulosa" class="timeline-img">
+                    <p>Tudo começa em imensas nuvens de gás e poeira no espaço, chamadas de nebulosas. São verdadeiros berçários estelares, onde a gravidade começa a atuar, comprimindo o material e dando início à formação de novas estrelas.</p>
+                </div>
+            </div>
+
+            <!-- Protoestrela -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>2. A Formação da Protoestrela</h2>
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Protoestrela" class="timeline-img">
+                    <p>À medida que o gás e a poeira se comprimem, formam-se regiões densas chamadas protoestrelas. A temperatura e pressão no núcleo aumentam drasticamente, preparando o cenário para o início das reações nucleares.</p>
+                </div>
+            </div>
+
+            <!-- Sequência Principal -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>3. A Vida Adulta: Sequência Principal</h2>
+                    <img src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Estrela na Sequência Principal" class="timeline-img">
+                    <p>Quando a temperatura no núcleo atinge milhões de graus, inicia-se a fusão nuclear: átomos de hidrogênio se fundem formando hélio, liberando energia colossal. A estrela alcança um equilíbrio perfeito entre a gravidade (que comprime) e a pressão da fusão (que expande). Nosso Sol está nesta fase há 4,6 bilhões de anos e permanecerá por mais 5 bilhões.</p>
+                </div>
+            </div>
+
+            <!-- Gigante Vermelha -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>4. A Velhice: Gigante Vermelha</h2>
+                    <img src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80" alt="Gigante Vermelha" class="timeline-img">
+                    <p>Quando o hidrogênio no núcleo se esgota, a estrela expande-se dramaticamente, tornando-se uma Gigante Vermelha. As camadas externas esfriam e ficam avermelhadas, enquanto o núcleo se contrai e aquece. Se o Sol se tornar uma Gigante Vermelha, engolirá Mercúrio, Vênus e possivelmente a Terra.</p>
+                </div>
+            </div>
+
+            <!-- Nebulosa Planetária -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>5. Morte de Estrelas Pequenas: Nebulosa Planetária</h2>
+                    <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nebulosa Planetária" class="timeline-img">
+                    <p>Estrelas de massa baixa a média (como o Sol) ejetam suas camadas externas, formando belíssimas Nebulosas Planetárias. Essas nuvens coloridas de gás e poeira se expandem pelo espaço, enriquecendo o meio interestelar com elementos pesados.</p>
+                </div>
+            </div>
+
+            <!-- Anã Branca -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>6. O Remanescente: Anã Branca</h2>
+                    <img src="https://images.unsplash.com/photo-1518709268805-4f9b927a1968?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Anã Branca" class="timeline-img">
+                    <p>No centro da nebulosa planetária, resta o núcleo quente e extremamente denso da estrela: uma Anã Branca. Com o tamanho da Terra mas a massa do Sol, ela não realiza mais fusão nuclear, apenas brilha com o calor residual, esfriando lentamente ao longo de bilhões de anos.</p>
+                </div>
+            </div>
+
+            <!-- Supernova -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>7. Morte de Estrelas Massivas: Supernova</h2>
+                    <img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Supernova" class="timeline-img">
+                    <p>Estrelas muito massivas terminam sua vida em explosões cataclísmicas chamadas Supernovas. Por alguns instantes, uma supernova pode brilhar mais que uma galáxia inteira. É nessas explosões que elementos pesados como ouro, prata e urânio são forjados e lançados pelo cosmos.</p>
+                </div>
+            </div>
+
+            <!-- Estrela de Nêutrons e Buraco Negro -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>8. Os Remanescentes Extremos</h2>
+                    <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Estrela de Nêutrons e Buraco Negro" class="timeline-img">
+                    <p>Após a supernova, o que resta depende da massa do núcleo original:
+                    <br><br>
+                    <strong>Estrela de Nêutrons:</strong> Uma bola de nêutrons com a massa do Sol, mas com apenas alguns quilômetros de diâmetro. Uma colher de chá de sua matéria pesaria bilhões de toneladas.
+                    <br><br>
+                    <strong>Buraco Negro:</strong> Se o núcleo for suficientemente massivo, nada consegue deter o colapso gravitacional, formando um buraco negro com gravidade tão intensa que nem a luz consegue escapar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>O Legado Cósmico</h2>
+            <p>A vida e morte das estrelas são o motor da evolução do universo. As nebulosas planetárias e supernovas semeiam o espaço com elementos pesados, tornando possível a formação de novas estrelas, planetas rochosos e, por fim, a vida como conhecemos.</p>
+            <p style="margin-top: 20px; font-size: 1.4rem; color: #bb86fc;">
+                <strong>Você é literalmente feito de "poeira das estrelas". O carbono no seu corpo, o oxigênio que você respira e o ferro no seu sangue foram forjados no coração de estrelas que viveram e morreram bilhões de anos atrás.</strong>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Uma jornada pelo ciclo de vida estelar - Desenvolvido para fins educacionais</p>
+        </div>
+    </footer>
+
+    <div class="audio-controls">
+        <label>
+            <span>Música:</span>
+            <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.5">
+        </label>
+        <label>
+            <span>Narração:</span>
+            <input type="range" id="voiceVolume" min="0" max="1" step="0.1" value="0.7">
+        </label>
+    </div>
+
+    <!-- Elementos de áudio -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-space-trip-639.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <audio id="narration">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-robot-voice-269.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <script>
+        // Elementos de áudio
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const narration = document.getElementById('narration');
+        const musicVolume = document.getElementById('musicVolume');
+        const voiceVolume = document.getElementById('voiceVolume');
+        
+        // Botões de controle
+        const playNarrationBtn = document.getElementById('playNarration');
+        const pauseNarrationBtn = document.getElementById('pauseNarration');
+        const restartNarrationBtn = document.getElementById('restartNarration');
+        
+        // Configuração inicial
+        backgroundMusic.volume = musicVolume.value;
+        narration.volume = voiceVolume.value;
+        
+        // Controles de volume
+        musicVolume.addEventListener('input', () => {
+            backgroundMusic.volume = musicVolume.value;
+        });
+        
+        voiceVolume.addEventListener('input', () => {
+            narration.volume = voiceVolume.value;
+        });
+        
+        // Controles de narração
+        playNarrationBtn.addEventListener('click', () => {
+            backgroundMusic.play();
+            narration.play();
+        });
+        
+        pauseNarrationBtn.addEventListener('click', () => {
+            backgroundMusic.pause();
+            narration.pause();
+        });
+        
+        restartNarrationBtn.addEventListener('click', () => {
+            backgroundMusic.currentTime = 0;
+            narration.currentTime = 0;
+            backgroundMusic.play();
+            narration.play();
+        });
+        
+        // Animação de scroll para os itens da timeline
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        function checkScroll() {
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (itemTop < windowHeight * 0.85) {
+                    item.classList.add('visible');
+                }
+            });
+        }
+        
+        // Verificar a posição do scroll ao carregar e ao rolar
+        window.addEventListener('load', checkScroll);
+        window.addEventListener('scroll', checkScroll);
+        
+        // Iniciar música de fundo suavemente
+        window.addEventListener('load', () => {
+            // Inicia a música com volume baixo e aumenta gradualmente
+            backgroundMusic.volume = 0.1;
+            backgroundMusic.play();
+            
+            let vol = 0.1;
+            const fadeIn = setInterval(() => {
+                if (vol < musicVolume.value) {
+                    vol += 0.01;
+                    backgroundMusic.volume = vol;
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
 
